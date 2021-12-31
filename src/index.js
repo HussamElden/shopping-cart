@@ -5,9 +5,10 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import NavBar from "./components/navbar";
 import ItemList from "./components/itemlist";
+import Routers from "./components/router";
 ReactDOM.render(
   <React.StrictMode>
-    <ItemList />
+    <Routers />
   </React.StrictMode>,
   document.getElementById("root")
 );

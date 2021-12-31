@@ -5,19 +5,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
-
-export default function ItemCard({ title, Price, Img }) {
+export default function ItemCard({ Index, item, Addtocart }) {
   return (
-    <Card sx={{ Width: 100, height: 275 }}>
+    <Card sx={{ Width: 100, height: 300 }}>
       <CardContent
         style={{
           alignItems: "center",
@@ -27,12 +19,24 @@ export default function ItemCard({ title, Price, Img }) {
         }}
       >
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {title}
+          {item.title}
         </Typography>
         <br />
-        <img src={Img} alt={title} style={{ height: "150px" }}></img>
+        <img src={item.img} alt={item.title} style={{ height: "150px" }}></img>
 
-        <Typography variant="body2">{Price}</Typography>
+        <Typography variant="body2">{item.Price}</Typography>
+        <br />
+        <div>
+          <Button onClick={() => Addtocart(Index)} variant="contained">
+            Add To Cart
+          </Button>
+
+          <Link to={`/ItemDetails/${item.key}`}>
+            <Button style={{ marginLeft: "10px" }} variant="contained">
+              More Details
+            </Button>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );
