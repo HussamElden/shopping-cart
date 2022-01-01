@@ -4,11 +4,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Breadcrumbs } from "@mui/material";
 import Badge from "@mui/material/Badge";
 export default function NavBar({ cartitems }) {
+  const navigate = useNavigate();
+
+  const handleItemRedirect = (link) => {
+    navigate(link);
+  };
   return (
     <Box sx={{ flexGrow: 100 }}>
       <AppBar position="static">
@@ -24,19 +29,31 @@ export default function NavBar({ cartitems }) {
               }}
               aria-label="breadcrumb"
             >
-              <Link to="/">
-                <Typography textAlign="center">Home</Typography>
-              </Link>
-              <Link underline="hover" color="inherit" to="/itemlist">
-                <Typography textAlign="center">Shoping List</Typography>
-              </Link>
+              <Button
+                key="Home"
+                onClick={() => handleItemRedirect("/")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Home
+              </Button>
+              <Button
+                key="Home"
+                onClick={() => handleItemRedirect("/itemlist")}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Shoping List
+              </Button>
             </Breadcrumbs>
           </Typography>
-          <Badge badgeContent={cartitems} color="primary">
-            <Link underline="hover" color="inherit" to="/cart">
+          <Button
+            key="Home"
+            onClick={() => handleItemRedirect("/cart")}
+            sx={{ my: 2, color: "white", display: "block" }}
+          >
+            <Badge badgeContent={cartitems} color="secondary">
               <ShoppingBasketIcon />
-            </Link>
-          </Badge>
+            </Badge>
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -5,9 +5,14 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ItemCard({ Index, item, Addtocart }) {
+  const navigate = useNavigate();
+
+  const handleItemRedirect = () => {
+    navigate(`/ItemDetails/${item.key}`);
+  };
   return (
     <Card sx={{ Width: 100, height: 300 }}>
       <CardContent
@@ -30,12 +35,13 @@ export default function ItemCard({ Index, item, Addtocart }) {
           <Button onClick={() => Addtocart(Index)} variant="contained">
             Add To Cart
           </Button>
-
-          <Link to={`/ItemDetails/${item.key}`}>
-            <Button style={{ marginLeft: "10px" }} variant="contained">
-              More Details
-            </Button>
-          </Link>
+          <Button
+            style={{ marginLeft: "10px" }}
+            variant="contained"
+            onClick={handleItemRedirect}
+          >
+            More Details
+          </Button>
         </div>
       </CardContent>
     </Card>
