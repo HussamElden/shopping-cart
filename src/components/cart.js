@@ -8,9 +8,19 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import React from "react";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+export default function Cart({ Cartitems, items, increase, decrease }) {
+  const navigate = useNavigate();
 
-export default function Cart({ Cartitems, items }) {
+  const handleItemRedirect = (link) => {
+    navigate(link);
+  };
   var total = 0;
+  console.log("cart" + Cartitems);
   return (
     <Box style={{ marginTop: "10px" }} sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -25,19 +35,21 @@ export default function Cart({ Cartitems, items }) {
           xs={8}
         >
           <List>
-            {Cartitems.map((itemindex) => {
-              total = total + items[itemindex].price;
+            {Cartitems.map((itemindex, index) => {
+              var itemid = itemindex[0];
+              var itemamount = itemindex[1];
+              total = total + items[itemid].price * itemamount;
               return (
                 <div>
                   <ListItem alignItems="flex-start">
                     <ListItemAvatar>
                       <Avatar
-                        alt={items[itemindex].title}
-                        src={items[itemindex].img}
+                        alt={items[itemid].title}
+                        src={items[itemid].img}
                       />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={items[itemindex].title}
+                      primary={items[itemid].title}
                       secondary={
                         <React.Fragment>
                           <Typography
@@ -46,7 +58,21 @@ export default function Cart({ Cartitems, items }) {
                             variant="body2"
                             color="text.primary"
                           >
-                            {items[itemindex].price} $
+                            {items[itemid].price} $ <br />
+                            Amount :
+                            <IconButton
+                              color="primary"
+                              onClick={() => decrease(index)}
+                            >
+                              <ArrowLeftIcon />
+                            </IconButton>
+                            {itemamount}
+                            <IconButton
+                              color="primary"
+                              onClick={() => increase(index)}
+                            >
+                              <ArrowRightIcon />
+                            </IconButton>
                           </Typography>
                         </React.Fragment>
                       }
@@ -61,6 +87,16 @@ export default function Cart({ Cartitems, items }) {
         <Grid item xs={4}>
           <h3>TOTAL:</h3>
           {total} $
+          <br />
+          <br />
+          <Button variant="contained">Check Out</Button>
+          <Button
+            onClick={() => handleItemRedirect("/itemlist")}
+            style={{ marginLeft: "10px" }}
+            variant="contained"
+          >
+            Continue shoping
+          </Button>
         </Grid>
       </Grid>
     </Box>

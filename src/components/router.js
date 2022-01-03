@@ -1,20 +1,66 @@
-import { useState } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import { Fragment, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cart from "./cart";
 import ItemDetails from "./itemdetails";
 import ItemList from "./itemlist";
 import NavBar from "./navbar";
-
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 export default function Routers() {
   const [Cartitems, setCartItems] = useState([]);
+  const [state, setState] = useState({
+    open: false,
+    vertical: "bottom",
+    horizontal: "left",
+  });
 
+  const { vertical, horizontal, open } = state;
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   function AddToCard(item) {
-    console.log(Cartitems);
+    var itemindex = Cartitems.findIndex((i) => i[0] === item);
+
     var Tempcart = [...Cartitems];
-    Tempcart.push(item);
+
+    if (itemindex === -1) {
+      Tempcart.push([item, 1]);
+    } else {
+      Tempcart[itemindex][1]++;
+    }
+
+    setCartItems(Tempcart);
+    console.log(Cartitems);
+    setState({ open: true, vertical: "bottom", horizontal: "left" });
+  }
+  function increaseamount(index) {
+    var Tempcart = [...Cartitems];
+    Tempcart[index][1]++;
+    setCartItems(Tempcart);
+    setState({ open: true, vertical: "bottom", horizontal: "left" });
+  }
+  function decreaseamount(index) {
+    var Tempcart = [...Cartitems];
+    Tempcart[index][1]--;
+    if (Tempcart[index][1] === 0) {
+      Tempcart.splice(index, 1);
+    }
     setCartItems(Tempcart);
   }
-
+  const action = (
+    <Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </Fragment>
+  );
   return (
     <BrowserRouter>
       <NavBar cartitems={Cartitems.length} />
@@ -29,9 +75,23 @@ export default function Routers() {
         />
         <Route
           path="/cart"
-          element={<Cart Cartitems={Cartitems} items={itemData} />}
+          element={
+            <Cart
+              Cartitems={Cartitems}
+              items={itemData}
+              increase={increaseamount}
+              decrease={decreaseamount}
+            />
+          }
         />
       </Routes>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Item Added to cart"
+        action={action}
+      />
     </BrowserRouter>
   );
 }
