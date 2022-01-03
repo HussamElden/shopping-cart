@@ -7,6 +7,7 @@ import ItemList from "./itemlist";
 import NavBar from "./navbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Home from "./home";
 export default function Routers() {
   const [Cartitems, setCartItems] = useState([]);
   const [state, setState] = useState({
@@ -15,7 +16,7 @@ export default function Routers() {
     horizontal: "left",
   });
 
-  const { vertical, horizontal, open } = state;
+  const { open } = state;
 
   const handleClose = () => {
     setState({ ...state, open: false });
@@ -65,6 +66,7 @@ export default function Routers() {
     <BrowserRouter>
       <NavBar cartitems={Cartitems.length} />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route
           path="/itemlist"
           element={<ItemList addtocart={AddToCard} items={itemData} />}
@@ -85,6 +87,7 @@ export default function Routers() {
           }
         />
       </Routes>
+
       <Snackbar
         open={open}
         autoHideDuration={6000}
