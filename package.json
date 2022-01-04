@@ -2,8 +2,9 @@
   "name": "shopping-cart",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://hussamelden.github.io/shopping-cart",
+  "homepage": "https://hussamelden.github.io/shopping-cart",
   "dependencies": {
+    "-": "0.0.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
@@ -19,6 +20,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "save-dev": "0.0.1-security",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
