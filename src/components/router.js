@@ -66,7 +66,7 @@ export default function Routers() {
     <BrowserRouter>
       <NavBar cartitems={Cartitems.length} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/shopping-cart" element={<Home />} />
         <Route
           path="/itemlist"
           element={<ItemList addtocart={AddToCard} items={itemData} />}
