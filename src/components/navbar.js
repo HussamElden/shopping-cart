@@ -31,7 +31,7 @@ export default function NavBar({ cartitems }) {
             >
               <Button
                 key="Home"
-                onClick={() => handleItemRedirect("/")}
+                onClick={() => handleItemRedirect("/shopping-cart")}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 Home
