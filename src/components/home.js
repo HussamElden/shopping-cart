@@ -26,7 +26,7 @@ export default function Home() {
       >
         <Typography
           variant="h1"
-          sx={{ fontSize: 200 }}
+          sx={{ fontSize: 150 }}
           color="text.primary"
           gutterBottom
         >
